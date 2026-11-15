@@ -452,6 +452,51 @@ a.more { color: var(--gold-ink); font-weight: 500; }
 .consent-bar { position: fixed; inset-inline: 16px; bottom: 16px; z-index: 70; background: var(--bg); color: var(--iv); padding: 18px 20px; display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; justify-content: space-between; box-shadow: var(--shadow-lg); }
 .consent-bar p { margin: 0; } .consent-bar a { color: var(--gold-2); } .consent-bar .btns { display: flex; gap: 8px; }
 
+/* the seal already sits on the areas seam: under the heading a plain gold rule is enough */
+.areas .orn { gap: 0; }
+.areas .orn img { display: none; }
+
+/* ---------- phone: one centre axis, hero fits the first screen ---------- */
+@media (max-width: 899px) {
+  /* hero: everything above the fixed bottom bar */
+  .hero { min-height: calc(100svh - 54px); padding: calc(var(--header-h) + 24px) 0 76px; }
+  .emblem { width: 58px; margin-bottom: 16px; }
+  .h1-name { font-size: clamp(2.3rem, 10.6vw, 3.4rem); line-height: 1.12; }
+  .tagline { margin-top: 14px; font-size: 1.02rem; line-height: 1.6; max-width: 30ch; }
+  .hero-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 26px; width: min(100%, 360px); margin-inline: auto; }
+  .hero-actions .btn { min-height: 50px; padding: 0 12px; flex: none; }
+  .hero-actions .btn:first-child { grid-column: 1 / -1; }
+  .seal { bottom: 22px; font-size: 1.05rem; gap: 14px; }
+  .seal::before, .seal::after { width: 44px; }
+  .a11y-btn { width: 40px; height: 40px; inset-inline-end: 12px; bottom: 66px; }
+
+  /* intro: centred, portrait + offset frame balanced */
+  .intro { padding-top: 72px; text-align: center; }
+  .frame { margin: 0 18px 18px 0; }
+  .intro h2 em { display: inline; }
+  .intro p { margin-inline: auto; }
+  .intro .lnk { margin-inline: auto; }
+
+  /* section headings and their gold rules on the centre axis */
+  .page-head { text-align: center; }
+  .page-head h1, .page-head .lead { margin-inline: auto; }
+  .page-head h1::after { margin-inline: auto; }
+  .breadcrumbs ol { justify-content: center; }
+  .rs-sec h2, .prose h2, .article-body h2, .legal h2, .contact-details > h2, .contact-grid > div > h2 { text-align: center; }
+  .rs-sec h2::after, .prose h2::after, .article-body h2::after, .legal h2::after { margin-inline: auto; }
+  .toc-title { text-align: center; }
+
+  /* cards: icon, title, text and link centred */
+  .cards > li > a, .area-list > li { align-items: center; text-align: center; padding-inline: 26px; }
+  .area-ico { margin-inline: auto; }
+  .pub-cards a { align-items: center; text-align: center; }
+
+  /* footer */
+  .footer-grid { text-align: center; justify-items: center; }
+  .footer-logo { margin-inline: auto; }
+  .footer-bottom { justify-content: center; text-align: center; }
+}
+
 /* ---------- motion: quiet, short, never looping ----------
    Only without "reduce motion" in the OS and without the a11y menu's "stop animations". */
 @keyframes rise { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
