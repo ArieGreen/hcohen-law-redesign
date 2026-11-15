@@ -1,13 +1,13 @@
 {
  "religious": {
-  "title": null,
+  "title": "Exterior detail, Federal Building U.S",
   "license": "cc0",
   "source": "rawpixel",
-  "landing": "https://www.rawpixel.com/image/5944186/free-public-domain-cc0-photo",
-  "creator": null,
+  "landing": "https://www.rawpixel.com/image/591528/carol-highsmiths-north-dakota-photograph",
+  "creator": "Carol M Highsmith",
   "downloaded_px": [
-   1024,
-   656
+   1016,
+   1024
   ]
  },
  "labor": {
@@ -22,14 +22,14 @@
   ]
  },
  "administrative": {
-  "title": "Architecture Column",
+  "title": null,
   "license": "cc0",
-  "source": "stocksnap",
-  "landing": "https://stocksnap.io/photo/architecture-column-01VGNXPYYL",
-  "creator": "The Building Envelope",
+  "source": "rawpixel",
+  "landing": "https://www.rawpixel.com/image/5948961/free-public-domain-cc0-photo",
+  "creator": null,
   "downloaded_px": [
-   960,
-   720
+   1024,
+   606
   ]
  },
  "tenders": {

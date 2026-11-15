@@ -1,4 +1,4 @@
-"""Rebuild the ח. כהן site in the chosen design (direction A: noir & gold).
+"""Rebuild the ח. כהן site in the contemporary corporate design.
 
 All copy is taken verbatim from the mirrored original pages; this script only
 changes markup structure and styling hooks. The one approved text change is the
@@ -42,13 +42,13 @@ def icon(name, cls='icon'):
 ARROW = icon('i-arrow')
 
 
-def head_bg(stock=None):
-    """Dark page-head photo: a CC0 stock image for areas/articles, the real office towers elsewhere."""
-    if stock:
-        return (f'<div class="head-bg" aria-hidden="true"><img src="assets/img/stock/{stock}-1024.webp" srcset="assets/img/stock/{stock}-800.webp 800w, '
-                f'assets/img/stock/{stock}-1024.webp 1024w" sizes="100vw" width="1024" height="683" alt="" decoding="async" fetchpriority="high"></div>')
-    return ('<div class="head-bg" aria-hidden="true"><img src="assets/img/towers-duo-1000.webp" srcset="assets/img/towers-duo-600.webp 600w, '
-            'assets/img/towers-duo-1000.webp 1000w" sizes="100vw" width="1000" height="1250" alt="" decoding="async" fetchpriority="high"></div>')
+def head_img(img):
+    """Wide photo band under an inner page title: a CC0 stock image, or the real office towers."""
+    if img == 'towers':
+        return ('<figure class="head-img" aria-hidden="true"><img src="assets/img/bsr-towers-1000.webp" srcset="assets/img/bsr-towers-600.webp 600w, '
+                'assets/img/bsr-towers-1000.webp 1000w" sizes="(min-width: 1300px) 1240px, 100vw" width="1000" height="1250" alt="" decoding="async" fetchpriority="high"></figure>')
+    return (f'<figure class="head-img" aria-hidden="true"><img src="assets/img/stock/{img}-1024.webp" srcset="assets/img/stock/{img}-800.webp 800w, '
+            f'assets/img/stock/{img}-1024.webp 1024w" sizes="(min-width: 1300px) 1240px, 100vw" width="1024" height="683" alt="" decoding="async" fetchpriority="high"></figure>')
 
 
 def card_img(stock):
@@ -59,11 +59,13 @@ def card_img(stock):
 def page_image(name):
     if name in AREA_IMAGES:
         return AREA_IMAGES[name]
-    if name.startswith(('article-', 'topic-')) or name == 'articles.html':
+    if name == 'articles.html':
         return 'books'
     if name == 'areas.html':
         return 'library'
-    return None
+    if name in ('about.html', 'team.html', 'contact.html', 'hagai-cohen.html'):
+        return 'towers'
+    return None   # articles, topic pages, legal pages: title only, straight to the text
 
 
 def read(name):
@@ -108,9 +110,8 @@ def new_head(head_html):
     h = re.sub(r'<link rel="preload"[^>]+>\n?', '', head_html)
     h = re.sub(r'assets/css/site\.css\?v=\w+', f'assets/css/site.css?v={V}', h)
     h = re.sub(r'assets/js/a11y-init\.js\?v=\w+', f'assets/js/a11y-init.js?v={V}', h)
-    h = h.replace('content="#FAF6EE"', 'content="#0A101C"')
-    pre = ('<link rel="preload" href="assets/fonts/noto-serif-hebrew-hebrew.woff2" as="font" type="font/woff2" crossorigin>\n'
-           '<link rel="preload" href="assets/fonts/heebo-hebrew.woff2" as="font" type="font/woff2" crossorigin>\n')
+    h = h.replace('content="#FAF6EE"', 'content="#12294A"')
+    pre = '<link rel="preload" href="assets/fonts/heebo-hebrew.woff2" as="font" type="font/woff2" crossorigin>\n'
     return h.replace('<link rel="stylesheet"', pre + '<link rel="stylesheet"', 1)
 
 
@@ -161,8 +162,11 @@ def transform_main(name, main_html):
             if el:
                 inner.append(el.extract())
         ph.clear()
-        ph['class'] = ph.get('class', []) + ['grain']
-        ph.append(soup_of(head_bg(page_image(name))))
+        img = page_image(name)
+        if img:
+            inner.append(soup_of(head_img(img)))
+        else:
+            ph['class'] = ph.get('class', []) + ['no-img']
         ph.append(inner)
     if name.startswith('article-'):
         art = s.main.find('article')
@@ -177,7 +181,6 @@ def transform_main(name, main_html):
     elif name == 'areas.html':
         for li in s.main.select('ul.area-list > li'):
             href = li.find('h3').a['href']
-            li.insert(0, soup_of(icon(AREA_ICONS.get(href, 'i-scroll'), 'icon area-ico')))
             li.insert(0, soup_of(card_img(AREA_IMAGES.get(href, 'library'))))
             more = li.find('a', class_='more')
             if more:
@@ -188,10 +191,6 @@ def transform_main(name, main_html):
             t = el.get_text(strip=True)
             if t in STATEMENT_UPDATES:
                 el.string = STATEMENT_UPDATES[t]
-    for img in s.main.find_all('img', src=re.compile('bsr-towers')):
-        img['src'] = img['src'].replace('bsr-towers', 'towers-duo')
-        if img.get('srcset'):
-            img['srcset'] = img['srcset'].replace('bsr-towers', 'towers-duo')
     return str(s.main)
 
 
@@ -216,8 +215,8 @@ def home_main():
     cards = ''
     for li in band.select('ul.area-list > li'):
         a = li.find('h3').find('a'); more = li.find('a', class_='more')
-        cards += (f'<li><a href="{a["href"]}">{card_img(AREA_IMAGES[a["href"]])}{icon(AREA_ICONS[a["href"]], "icon area-ico")}<h3>{a.get_text(strip=True)}</h3>'
-                  f'<p>{li.find("p").get_text(strip=True)}</p><span class="more">{more.decode_contents()}{ARROW}</span></a></li>')
+        cards += (f'<li><a href="{a["href"]}">{card_img(AREA_IMAGES[a["href"]])}<span class="card-body"><h3>{a.get_text(strip=True)}</h3>'
+                  f'<p>{li.find("p").get_text(strip=True)}</p><span class="more">{more.decode_contents()}{ARROW}</span></span></a></li>')
     notary = band.find('p', class_='muted').get_text(strip=True)
 
     pubs = m.find('section', class_='home-pubs')
@@ -230,42 +229,38 @@ def home_main():
 
     return f'''<main id="main" tabindex="-1">
 
-<section class="hero grain" aria-labelledby="hero-title">
-  <div class="head-bg"><img src="assets/img/bsr-towers-1000.webp" srcset="assets/img/bsr-towers-600.webp 600w, assets/img/bsr-towers-1000.webp 1000w" sizes="100vw" width="1000" height="1250" alt="{img["alt"]}" decoding="async" fetchpriority="high"></div>
-  <div class="container">
-    <img class="emblem" src="assets/img/logo-mark.webp" alt="" width="223" height="240">
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-photo"><img src="assets/img/bsr-towers-1000.webp" srcset="assets/img/bsr-towers-600.webp 600w, assets/img/bsr-towers-1000.webp 1000w" sizes="100vw" width="1000" height="1250" alt="{img["alt"]}" decoding="async" fetchpriority="high"></div>
+  <div class="hero-panel">
     <h1 id="hero-title"><span class="h1-name">{h1_name}</span><span class="visually-hidden"> | </span><span class="tagline">{tagline}</span></h1>
     <div class="hero-actions">{btns}</div>
+    <p class="since">{kicker}</p>
   </div>
-  <p class="seal">{kicker}</p>
 </section>
 
-<section class="intro seam-arc" aria-labelledby="intro-h">
+<section class="intro" aria-labelledby="intro-h">
   <div class="container">
-    <figure class="frame"><img src="assets/img/hagai-cohen-720.webp" srcset="assets/img/hagai-cohen-420.webp 420w, assets/img/hagai-cohen-720.webp 720w" sizes="(min-width: 900px) 38vw, 100vw" width="720" height="900" alt="{portrait_alt}" loading="lazy" decoding="async"></figure>
-    <div>
+    <div class="text">
       <h2 id="intro-h">{intro_h2}</h2>
       {intro_ps}
       <a class="lnk" href="{intro_more["href"]}">{intro_more.get_text(strip=True)}{ARROW}</a>
     </div>
+    <figure class="portrait"><img src="assets/img/hagai-cohen-720.webp" srcset="assets/img/hagai-cohen-420.webp 420w, assets/img/hagai-cohen-720.webp 720w" sizes="(min-width: 900px) 34vw, 100vw" width="720" height="900" alt="{portrait_alt}" loading="lazy" decoding="async"></figure>
   </div>
 </section>
 
-<section class="areas seam-seal" aria-labelledby="areas-h">
+<section class="areas" aria-labelledby="areas-h">
   <div class="container">
-    <h2 class="sec-title" id="areas-h">{areas_h2}</h2>
-    {emblem}
+    <div class="sec-head"><h2 class="sec-title" id="areas-h">{areas_h2}</h2></div>
     <ul class="cards">{cards}</ul>
     <p class="notary">{notary}</p>
   </div>
 </section>
 
-<section class="pubs seam-dome" aria-labelledby="pubs-h">
+<section class="pubs" aria-labelledby="pubs-h">
   <div class="container">
-    <h2 class="sec-title" id="pubs-h">{pubs_h2}</h2>
-    {emblem}
+    <div class="head"><h2 class="sec-title" id="pubs-h">{pubs_h2}</h2><a class="lnk" href="{all_more["href"]}">{all_more.get_text(strip=True)}{ARROW}</a></div>
     <ul class="pub-cards">{pub_cards}</ul>
-    <p class="center"><a class="btn dark" href="{all_more["href"]}">{all_more.get_text(strip=True)}</a></p>
   </div>
 </section>
 
