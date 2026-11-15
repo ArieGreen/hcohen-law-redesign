@@ -29,7 +29,7 @@ LEGAL_FILES = {'privacy.html', 'terms.html', 'cookies.html', 'accessibility.html
 AREA_ICONS = {'religious-services.html': 'i-stone', 'labor.html': 'i-users', 'administrative.html': 'i-landmark',
               'tenders.html': 'i-stamp', 'kashrut.html': 'i-badge', 'collection.html': 'i-coins'}
 # practice-area page blocks, keyed by their (original) heading
-AREA_IMAGES = {'religious-services.html': 'religious', 'labor.html': 'labor', 'administrative.html': 'administrative',
+AREA_IMAGES = {'religious-services.html': 'rs-advisory', 'labor.html': 'labor-hearing', 'administrative.html': 'administrative',
                'tenders.html': 'tenders', 'kashrut.html': 'kashrut', 'collection.html': 'collection'}
 SECTION_KINDS = {'השירותים בתחום': 'services', 'בין הנושאים שבהם המשרד מטפל': 'topics', 'מסגרת הדין': 'law',
                  'דפי נושא': 'topic-pages', 'מאמרים בתחום': 'articles'}

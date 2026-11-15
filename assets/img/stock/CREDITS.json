@@ -1,26 +1,4 @@
 {
- "religious": {
-  "title": "Exterior detail, Federal Building U.S",
-  "license": "cc0",
-  "source": "rawpixel",
-  "landing": "https://www.rawpixel.com/image/591528/carol-highsmiths-north-dakota-photograph",
-  "creator": "Carol M Highsmith",
-  "downloaded_px": [
-   1016,
-   1024
-  ]
- },
- "labor": {
-  "title": "Writing Papers",
-  "license": "cc0",
-  "source": "stocksnap",
-  "landing": "https://stocksnap.io/photo/writing-papers-Y01VDYAX63",
-  "creator": "Helloquence",
-  "downloaded_px": [
-   960,
-   641
-  ]
- },
  "administrative": {
   "title": null,
   "license": "cc0",
@@ -81,6 +59,28 @@
   "license": "cc0",
   "source": "rawpixel",
   "landing": "https://www.rawpixel.com/image/3305593/free-photo-image-law-library-book",
+  "creator": null,
+  "downloaded_px": [
+   1024,
+   683
+  ]
+ },
+ "rs-advisory": {
+  "title": "Free close two people hands",
+  "license": "cc0",
+  "source": "rawpixel",
+  "landing": "https://www.rawpixel.com/image/5927609/photo-image-background-public-domain-hands",
+  "creator": null,
+  "downloaded_px": [
+   1024,
+   683
+  ]
+ },
+ "labor-hearing": {
+  "title": "Two people discussing business table",
+  "license": "cc0",
+  "source": "rawpixel",
+  "landing": "https://www.rawpixel.com/image/3336872/free-photo-image-desk-meeting-men",
   "creator": null,
   "downloaded_px": [
    1024,
