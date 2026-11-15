@@ -185,6 +185,10 @@ def transform_main(name, main_html):
             more = li.find('a', class_='more')
             if more:
                 more.append(soup_of(ARROW))
+    elif name == 'contact.html':
+        # privacy disclosure starts closed; the visitor opens it on demand
+        for d in s.main.select('#contact-form details'):
+            d.attrs.pop('open', None)
     elif name == 'accessibility.html':
         # approved by the client (15.11.2026): the redesign adds light animations
         for el in s.main.find_all(['li', 'p']):
