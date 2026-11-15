@@ -218,7 +218,7 @@ def home_main():
   <p class="seal">{kicker}</p>
 </section>
 
-<section class="intro" aria-labelledby="intro-h">
+<section class="intro seam-arc" aria-labelledby="intro-h">
   <div class="container">
     <figure class="frame"><img src="assets/img/hagai-cohen-720.webp" srcset="assets/img/hagai-cohen-420.webp 420w, assets/img/hagai-cohen-720.webp 720w" sizes="(min-width: 900px) 38vw, 100vw" width="720" height="900" alt="{portrait_alt}" loading="lazy" decoding="async"></figure>
     <div>
@@ -229,7 +229,7 @@ def home_main():
   </div>
 </section>
 
-<section class="areas" aria-labelledby="areas-h">
+<section class="areas seam-seal" aria-labelledby="areas-h">
   <div class="container">
     <h2 class="sec-title" id="areas-h">{areas_h2}</h2>
     {emblem}
@@ -238,7 +238,7 @@ def home_main():
   </div>
 </section>
 
-<section class="pubs" aria-labelledby="pubs-h">
+<section class="pubs seam-dome" aria-labelledby="pubs-h">
   <div class="container">
     <h2 class="sec-title" id="pubs-h">{pubs_h2}</h2>
     {emblem}
