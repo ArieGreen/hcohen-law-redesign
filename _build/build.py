@@ -26,7 +26,7 @@ STATEMENT_UPDATES = {
 }
 AREA_FILES = {'religious-services.html', 'labor.html', 'administrative.html', 'tenders.html', 'kashrut.html', 'collection.html'}
 LEGAL_FILES = {'privacy.html', 'terms.html', 'cookies.html', 'accessibility.html'}
-AREA_ICONS = {'religious-services.html': 'i-stone', 'labor.html': 'i-users', 'administrative.html': 'i-landmark',
+AREA_ICONS = {'religious-services.html': 'i-clipboard', 'labor.html': 'i-users', 'administrative.html': 'i-landmark',
               'tenders.html': 'i-stamp', 'kashrut.html': 'i-badge', 'collection.html': 'i-coins'}
 # practice-area page blocks, keyed by their (original) heading
 AREA_IMAGES = {'religious-services.html': 'rs-advisory', 'labor.html': 'labor-hearing', 'administrative.html': 'administrative',
@@ -42,30 +42,26 @@ def icon(name, cls='icon'):
 ARROW = icon('i-arrow')
 
 
-def head_img(img):
-    """Wide photo band under an inner page title: a CC0 stock image, or the real office towers."""
-    if img == 'towers':
-        return ('<figure class="head-img" aria-hidden="true"><img src="assets/img/bsr-towers-1000.webp" srcset="assets/img/bsr-towers-600.webp 600w, '
-                'assets/img/bsr-towers-1000.webp 1000w" sizes="(min-width: 1300px) 1240px, 100vw" width="1000" height="1250" alt="" decoding="async" fetchpriority="high"></figure>')
-    return (f'<figure class="head-img" aria-hidden="true"><img src="assets/img/stock/{img}-1024.webp" srcset="assets/img/stock/{img}-800.webp 800w, '
-            f'assets/img/stock/{img}-1024.webp 1024w" sizes="(min-width: 1300px) 1240px, 100vw" width="1024" height="683" alt="" decoding="async" fetchpriority="high"></figure>')
-
-
 def card_img(stock):
     return (f'<span class="card-img" aria-hidden="true"><img src="assets/img/stock/{stock}-800.webp" width="800" height="534" alt="" '
             f'loading="lazy" decoding="async"></span>')
 
 
-def page_image(name):
-    if name in AREA_IMAGES:
-        return AREA_IMAGES[name]
-    if name == 'articles.html':
-        return 'books'
-    if name == 'areas.html':
-        return 'library'
-    if name in ('about.html', 'team.html', 'contact.html', 'hagai-cohen.html'):
-        return 'towers'
-    return None   # articles, topic pages, legal pages: title only, straight to the text
+PAGE_ICONS = {'about.html': 'i-briefcase', 'team.html': 'i-users', 'hagai-cohen.html': 'i-user', 'contact.html': 'i-chat',
+              'articles.html': 'i-book', 'areas.html': 'i-key', 'accessibility.html': 'i-access', 'en.html': 'i-map'}
+
+
+def head_icon(name):
+    """Large line icon for the navy page head: the page's subject, drawn faint on the far side."""
+    if name in AREA_ICONS:
+        return AREA_ICONS[name]
+    if name.startswith('article-'):
+        return 'i-file'
+    if name.startswith('topic-'):
+        return 'i-calendar'
+    if name in LEGAL_FILES:
+        return PAGE_ICONS.get(name, 'i-shield')
+    return PAGE_ICONS.get(name, 'i-landmark')
 
 
 def read(name):
@@ -152,6 +148,25 @@ def area_page(s, block):
     block.replace_with(soup_of(out))
 
 
+def articles_page(s):
+    """Articles index: chips to every heading on the page, and hooks for the topic / journal blocks."""
+    prose = s.main.find('div', class_='prose')
+    blocks = prose.find_all('div', class_='pubs', recursive=False)
+    if blocks:
+        blocks[0]['class'] = blocks[0]['class'] + ['topics-block']
+    heads = prose.find_all(['h2', 'h3'])
+    for i, h in enumerate(heads, 1):
+        h['id'] = h.get('id') or f'g{i}'
+    # the single journal submission sits right under its h2, before the site's own groups
+    for h in prose.find_all('h2'):
+        nxt = h.find_next_sibling()
+        if nxt is not None and nxt.name == 'ul' and len(nxt.find_all('li', recursive=False)) == 1 and not h.find_parent(class_='topics-block'):
+            nxt['class'] = nxt.get('class', []) + ['journal-list']
+    chips = ''.join(f'<li><a href="#{h["id"]}">{h.get_text(strip=True)}</a></li>'
+                    for h in heads if not (h.name == 'h2' and h.find_next_sibling() is not None and h.find_next_sibling().name == 'h3'))
+    prose.insert(0, soup_of(f'<nav class="chips" aria-labelledby="chips-title"><p id="chips-title">{TOC_LABEL}</p><ul>{chips}</ul></nav>'))
+
+
 def transform_main(name, main_html):
     s = soup_of(main_html)
     ph = s.main.find('div', class_='page-head')
@@ -162,11 +177,7 @@ def transform_main(name, main_html):
             if el:
                 inner.append(el.extract())
         ph.clear()
-        img = page_image(name)
-        if img:
-            inner.append(soup_of(head_img(img)))
-        else:
-            ph['class'] = ph.get('class', []) + ['no-img']
+        ph.append(soup_of(icon(head_icon(name), 'icon head-ico')))
         ph.append(inner)
     if name.startswith('article-'):
         art = s.main.find('article')
@@ -185,6 +196,8 @@ def transform_main(name, main_html):
             more = li.find('a', class_='more')
             if more:
                 more.append(soup_of(ARROW))
+    elif name == 'articles.html':
+        articles_page(s)
     elif name == 'contact.html':
         # privacy disclosure starts closed; the visitor opens it on demand
         for d in s.main.select('#contact-form details'):
@@ -262,7 +275,7 @@ def home_main():
   </div>
 </section>
 
-<section class="pubs" aria-labelledby="pubs-h">
+<section class="pubs-home" aria-labelledby="pubs-h">
   <div class="container">
     <div class="head"><h2 class="sec-title" id="pubs-h">{pubs_h2}</h2><a class="lnk" href="{all_more["href"]}">{all_more.get_text(strip=True)}{ARROW}</a></div>
     <ul class="pub-cards">{pub_cards}</ul>
