@@ -1438,3 +1438,22 @@ html.a11y-still *, html.a11y-still *::before, html.a11y-still *::after { animati
     html:not(.a11y-still) .page-index .site-header::before { inset: 0 0 -64px 0; background: linear-gradient(180deg, rgba(11, 28, 53, .9) 0%, rgba(11, 28, 53, .74) 40%, rgba(11, 28, 53, .36) 72%, rgba(11, 28, 53, 0) 100%); animation-range: 0 260px; }
   }
 }
+
+/* ===== Compact inner page heads on desktop (they took too much of a laptop screen) + articles index: group names no longer stick (they piled on each other) ===== */
+@media (min-width: 900px) {
+  .page-head { padding: 30px 0 58px; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 26px), 0 100%); }
+  .page-head::after { height: 26px; }
+  .page-article .page-head, .page-topic .page-head { padding-top: 28px; }
+  .page-head h1 { font-size: clamp(2rem, 3.1vw, 2.9rem); line-height: 1.12; }
+  .page-article .page-head h1, .page-topic .page-head h1 { font-size: clamp(1.7rem, 2.5vw, 2.3rem); max-width: 32ch; }
+  .page-head h1::after { width: 56px; margin-top: 14px; }
+  .page-head .lead { margin-top: 14px; font-size: 1.05rem; max-width: 70ch; }
+  .breadcrumbs { margin-bottom: 10px; }
+  .block, .profile, .contact-grid, .section { padding-top: 44px; }
+  .rs-top { padding-top: 44px; }
+  .page-articles .prose .pub-group { position: static; }
+}
+@media (min-width: 900px) {
+  .page-article .page-head .lead, .page-topic .page-head .lead, .page-legal .page-head .lead { font-size: .98rem; max-width: 96ch; margin-top: 10px; }
+  .page-article .page-head, .page-topic .page-head { padding-bottom: 50px; }
+}
