@@ -236,6 +236,9 @@ def home_main():
         cards += (f'<li><a href="{a["href"]}">{card_img(AREA_IMAGES[a["href"]])}<span class="card-body"><h3>{a.get_text(strip=True)}</h3>'
                   f'<p>{li.find("p").get_text(strip=True)}</p><span class="more">{more.decode_contents()}{ARROW}</span></span></a></li>')
     notary = band.find('p', class_='muted').get_text(strip=True)
+    # desktop hero strip: the six practice areas (their own names) as quick links
+    strip = ''.join(f'<li><a href="{li.find("h3").a["href"]}">{icon(AREA_ICONS[li.find("h3").a["href"]])}'
+                    f'<span>{li.find("h3").a.get_text(strip=True)}</span></a></li>' for li in band.select('ul.area-list > li'))
 
     pubs = m.find('section', class_='home-pubs')
     pubs_h2 = pubs.find('h2').decode_contents()
@@ -254,6 +257,7 @@ def home_main():
     <h1 id="hero-title"><span class="h1-name">{h1_name}</span><span class="visually-hidden"> | </span><span class="tagline">{tagline}</span></h1>
     <div class="hero-actions">{btns}</div>
   </div>
+  <nav class="hero-strip" aria-label="{areas_h2}"><ul>{strip}</ul></nav>
 </section>
 
 <section class="intro" aria-labelledby="intro-h">
