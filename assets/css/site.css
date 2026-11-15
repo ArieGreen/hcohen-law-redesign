@@ -582,3 +582,20 @@ html.a11y-still *, html.a11y-still *::before, html.a11y-still *::after { animati
   .page-head h1, .breadcrumbs a { color: #000; }
   .article-layout > * { grid-column: auto !important; }
 }
+
+/* ---------- about page: text + sticky side column ---------- */
+.about-layout { display: grid; gap: 40px; }
+.about-side { display: grid; gap: 18px; align-content: start; }
+.about-portrait, .about-towers { margin: 0; border-radius: var(--r); overflow: hidden; box-shadow: var(--shadow-lg); }
+.about-portrait img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 18%; }
+.about-towers img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: 50% 35%; }
+.about-card { background: var(--navy); color: var(--on-navy-2); border-radius: var(--r); padding: 26px 26px 22px; }
+.about-card h2 { color: #fff; font-size: 1.35rem; margin: 0 0 10px; }
+.about-card p { margin: 0; font-size: 1rem; line-height: 1.7; }
+.page-about .prose > p:nth-child(n+3) { color: var(--ink-2); }
+@media (min-width: 900px) {
+  .about-layout { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 0 var(--gap); align-items: start; }
+  .about-layout > .prose { grid-column: 1 / span 7; }
+  .about-side { grid-column: 9 / span 4; position: sticky; top: calc(var(--header-h) + 28px); }
+}
+@media (max-width: 899px) { .about-side { grid-template-columns: 1fr 1fr; } .about-card { grid-column: 1 / -1; order: -1; } .about-towers img { aspect-ratio: 4 / 5; } }

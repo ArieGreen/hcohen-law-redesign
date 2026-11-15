@@ -196,6 +196,21 @@ def transform_main(name, main_html):
             more = li.find('a', class_='more')
             if more:
                 more.append(soup_of(ARROW))
+    elif name == 'about.html':
+        # text column + sticky side column built from the page's own material (portrait, "המשרד" address block, the towers)
+        block = s.main.find('div', class_='block')
+        prose = block.find('div', class_='prose', recursive=False)
+        office_h = prose.find('h2')
+        office_p = office_h.find_next_sibling('p') if office_h else None
+        card = ''
+        if office_h:
+            card = f'<div class="about-card">{office_h.extract()}{office_p.extract() if office_p else ""}</div>'
+        alt = soup_of(read('hagai-cohen.html')).find('div', class_='profile-photo').find('img')['alt']
+        aside = (f'<aside class="about-side"><figure class="about-portrait"><img src="assets/img/hagai-cohen-720.webp" width="720" height="900" '
+                 f'alt="{alt}" loading="lazy" decoding="async"></figure>{card}'
+                 f'<figure class="about-towers" aria-hidden="true"><img src="assets/img/bsr-towers-600.webp" width="600" height="750" alt="" loading="lazy" decoding="async"></figure></aside>')
+        block['class'] = block.get('class', []) + ['about-layout']
+        block.append(soup_of(aside))
     elif name == 'articles.html':
         articles_page(s)
     elif name == 'contact.html':
