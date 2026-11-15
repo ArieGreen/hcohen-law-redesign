@@ -114,7 +114,7 @@ a.more { color: var(--accent); font-weight: 600; text-decoration: none; }
 /* ---------- home: hero (wide photo + white panel that crosses into the next section) ---------- */
 .hero { position: relative; background: var(--mist); padding-top: 0; }
 .hero-photo { position: relative; height: clamp(420px, 74vh, 760px); overflow: hidden; }
-.hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 40% 22%; }
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 60% 12%; }
 .hero-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(11, 28, 53, .45), rgba(11, 28, 53, 0) 45%); }
 .hero-panel { position: relative; z-index: 2; background: var(--white); padding: 32px 24px 28px; margin: -96px var(--margin) 0; border-radius: var(--r); box-shadow: var(--shadow-lg); }
 .hero h1 { font-weight: 800; }
@@ -129,7 +129,8 @@ a.more { color: var(--accent); font-weight: 600; text-decoration: none; }
   /* desktop: full-bleed photo, navy gradient from the text side, big white title, practice-area strip along the bottom */
   .hero { position: relative; display: flex; flex-direction: column; justify-content: center; height: calc(100svh - var(--header-h)); min-height: 500px; max-height: 960px; overflow: hidden; background: var(--navy-2); }
   .hero-photo { position: absolute; inset: 0; height: auto; }
-  .hero-photo img { object-position: 45% 4%; }
+  /* the BSR 1 tower sits mid-image: enlarge from the right edge so it lands in the free (photo) side */
+  .hero-photo img { width: 160%; height: 160%; max-width: none; object-position: 100% 0; }
   .hero-photo::after { background:
       linear-gradient(to left, rgba(11, 28, 53, .96) 0%, rgba(11, 28, 53, .86) 30%, rgba(11, 28, 53, .35) 62%, rgba(11, 28, 53, .1) 100%),
       linear-gradient(to top, rgba(11, 28, 53, .9) 0%, rgba(11, 28, 53, 0) 34%); }

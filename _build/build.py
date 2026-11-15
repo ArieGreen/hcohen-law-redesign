@@ -266,7 +266,7 @@ def home_main():
     return f'''<main id="main" tabindex="-1">
 
 <section class="hero" aria-labelledby="hero-title">
-  <div class="hero-photo"><img src="assets/img/bsr-hero-1600.webp" srcset="assets/img/bsr-hero-900.webp 900w, assets/img/bsr-hero-1600.webp 1600w" sizes="100vw" width="1600" height="1461" alt="{img["alt"]}" decoding="async" fetchpriority="high"></div>
+  <div class="hero-photo"><img src="assets/img/bsr-day-1920.webp" srcset="assets/img/bsr-day-1000.webp 1000w, assets/img/bsr-day-1920.webp 1920w" sizes="(min-width: 900px) 160vw, 100vw" width="1920" height="1080" alt="{img["alt"]}" decoding="async" fetchpriority="high"></div>
   <p class="since"><span class="since-word">{since_word}</span> <span class="since-year">{since_year}</span></p>
   <div class="hero-panel">
     <h1 id="hero-title"><span class="h1-name">{h1_name}</span><span class="visually-hidden"> | </span><span class="tagline">{tagline}</span></h1>
