@@ -595,3 +595,13 @@ html.a11y-still *, html.a11y-still *::before, html.a11y-still *::after { animati
   .about-side { grid-column: 9 / span 4; position: sticky; top: calc(var(--header-h) + 28px); }
 }
 @media (max-width: 899px) { .about-side { grid-template-columns: 1fr 1fr; } .about-card { grid-column: 1 / -1; order: -1; } .about-towers img { aspect-ratio: 4 / 5; } }
+
+/* home, phone: the bottom call bar slides in only after the hero has scrolled away (the hero has its own buttons) */
+@keyframes bar-in { from { transform: translateY(110%); } to { transform: none; } }
+@keyframes a11y-up { from { transform: translateY(50px); } to { transform: none; } }
+@media (max-width: 899px) {
+  @supports (animation-timeline: scroll()) {
+    .page-index .m-cta { animation: bar-in linear both; animation-timeline: scroll(root); animation-range: 55svh 75svh; }
+    .page-index .a11y-btn { animation: a11y-up linear both; animation-timeline: scroll(root); animation-range: 55svh 75svh; }
+  }
+}
