@@ -234,6 +234,7 @@ def home_main():
     since_word, since_year = kicker.split(' ', 1)   # "מאז 2001": same text, word small and year large
     h1 = hero.find('h1')
     h1_name = h1.contents[0].strip()
+    h1_nm, h1_pr = h1_name.split(' - ', 1)   # same words; the dash stays in the markup for readers
     tagline = h1.find('span', class_='tagline').get_text(strip=True)
     btns = ''.join(f'<a class="btn{" solid" if i == 0 else ""}" href="{a["href"]}">{a.get_text(strip=True)}</a>'
                    for i, a in enumerate(hero.find('p', class_='hero-links').find_all('a')))
@@ -267,9 +268,9 @@ def home_main():
 
 <section class="hero" aria-labelledby="hero-title">
   <div class="hero-photo"><img src="assets/img/bsr-day-1920.webp" srcset="assets/img/bsr-day-1000.webp 1000w, assets/img/bsr-day-1920.webp 1920w" sizes="(min-width: 900px) 160vw, 100vw" width="1920" height="1080" alt="{img["alt"]}" decoding="async" fetchpriority="high"></div>
-  <p class="since"><span class="since-word">{since_word}</span> <span class="since-year">{since_year}</span></p>
   <div class="hero-panel">
-    <h1 id="hero-title"><span class="h1-name">{h1_name}</span><span class="visually-hidden"> | </span><span class="tagline">{tagline}</span></h1>
+    <p class="since"><span class="since-word">{since_word}</span> <span class="since-year">{since_year}</span></p>
+    <h1 id="hero-title"><span class="h1-row"><img class="h1-mark" src="assets/img/logo-mark.webp" alt="" width="223" height="240"><span class="h1-name"><span class="nm">{h1_nm}</span><span class="dash"> - </span><span class="pr">{h1_pr}</span></span></span><span class="visually-hidden"> | </span><span class="tagline">{tagline}</span></h1>
     <div class="hero-actions">{btns}</div>
   </div>
   <nav class="hero-strip" aria-label="{areas_h2}"><ul>{strip}</ul></nav>
