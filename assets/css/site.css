@@ -99,15 +99,39 @@ a.more { color: var(--accent); font-weight: 600; text-decoration: none; }
 .header-call:hover { background: var(--accent); }
 .nav-toggle { display: none; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: var(--r); background: transparent; align-items: center; justify-content: center; }
 .nav-toggle .icon { width: 22px; height: 22px; }
+.nav-ico, .nav-arr, .nav-extra { display: none; }
 @media (max-width: 1099px) {
-  .nav-toggle { display: inline-flex; }
-  .header-call { padding: 0; width: 44px; justify-content: center; }
+  /* header: white logo side and a navy action side, joined by the hero's diagonal with a sky edge */
+  .site-header { background: #fff; backdrop-filter: none; border-bottom: 0; }
+  .site-header::before { content: ""; position: absolute; inset: 0; background: var(--navy); clip-path: polygon(0 0, 46% 0, 40% 100%, 0 100%); pointer-events: none; }
+  .site-header::after { content: ""; position: absolute; inset: 0; background: #8DB4E2; clip-path: polygon(46% 0, 47.2% 0, 41.2% 100%, 40% 100%); pointer-events: none; }
+  .header-row { gap: 8px; }
+  .header-row > :not(.main-nav) { position: relative; z-index: 1; }
+  .header-call { margin-inline-start: 52px; padding: 0; width: 42px; height: 42px; min-height: 0; justify-content: center; border-radius: 10px; background: #fff; color: var(--navy); }
+  .header-call:hover { background: #DCE7F5; }
   .header-call .num { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  .main-nav { position: absolute; inset-inline: 0; top: 100%; background: var(--white); border-bottom: 1px solid var(--line); box-shadow: var(--shadow); display: none; }
+  .nav-toggle { display: inline-flex; width: 42px; height: 42px; border: 0; border-radius: 10px; background: rgba(255, 255, 255, .14); color: #fff; }
+  /* menu: a navy sheet under the header; the page behind is dimmed */
+  .main-nav { position: absolute; inset-inline: 0; top: 100%; z-index: 0; background: var(--navy); color: #fff; display: none; box-shadow: 0 0 0 100vmax rgba(11, 28, 53, .5); clip-path: inset(0 0 -100vmax 0); max-height: calc(100svh - var(--header-h)); overflow-y: auto; }
   .main-nav.open { display: block; }
-  .main-nav ul { flex-direction: column; width: min(100% - 2 * var(--margin), var(--max)); margin: 8px auto 16px; gap: 0; }
-  .main-nav li + li { border-top: 1px solid var(--line); }
-  .main-nav a { padding: 15px 4px; font-size: 1.1rem; }
+  .main-nav ul { flex-direction: column; width: min(100% - 2 * var(--margin), var(--max)); margin: 10px auto 0; gap: 0; }
+  .main-nav li + li { border-top: 0; }
+  .main-nav a { display: grid; grid-template-columns: 30px 1fr auto; align-items: center; gap: 12px; padding: 15px 0; font-size: 1.2rem; font-weight: 700; color: #fff; border-radius: 0; border-bottom: 1px solid rgba(255, 255, 255, .12); }
+  .main-nav a:hover { background: none; color: #8DB4E2; }
+  .main-nav a[aria-current="page"] { color: #8DB4E2; }
+  .nav-ico { display: block; width: 24px; height: 24px; color: #8DB4E2; }
+  .nav-arr { display: block; width: 18px; height: 18px; color: rgba(255, 255, 255, .5); }
+  .main-nav a[lang="en"] { display: inline-flex; width: auto; margin-top: 18px; padding: 0 18px; height: 50px; border: 1px solid rgba(255, 255, 255, .3); border-radius: 10px; font-size: 1rem; font-weight: 600; }
+  .main-nav li:last-child { align-self: flex-end; }
+  .main-nav li:last-child a { width: 104px; justify-content: center; }
+  .nav-extra { display: block; width: min(100% - 2 * var(--margin), var(--max)); margin: -50px auto 0; padding: 0 0 22px; }
+  .main-nav .nav-call { display: flex; align-items: center; justify-content: center; gap: 10px; height: 50px; margin-inline-end: calc(var(--en-w, 104px) + 10px); padding: 0; border: 0; border-radius: 10px; background: #fff; color: var(--navy); font-weight: 800; font-size: 1.1rem; text-decoration: none; }
+  .main-nav .nav-call .icon { color: var(--navy); }
+  .nav-addr { margin: 14px 0 0; text-align: center; color: #8DB4E2; font-size: .88rem; }
+  /* accessibility stays on screen, in the header between the logo side and the call button */
+  html .a11y-btn { position: fixed; top: calc((var(--header-h) - 42px) / 2); bottom: auto !important; inset-inline-end: calc(var(--margin) + 100px); z-index: 60; width: 42px; height: 42px; border-radius: 10px; background: rgba(255, 255, 255, .14); box-shadow: none; animation: none !important; }
+  html .a11y-btn .icon { width: 22px; height: 22px; }
+  html .a11y-panel { top: calc(var(--header-h) + 8px); bottom: auto !important; }
 }
 @media (max-width: 420px) { .brand-sub { display: none; } }
 
@@ -514,9 +538,7 @@ a.more { color: var(--accent); font-weight: 600; text-decoration: none; }
 /* ---------- a11y widget (built by site.js) ---------- */
 .a11y-btn { position: fixed; inset-inline-end: 16px; bottom: 16px; z-index: 60; width: 48px; height: 48px; border-radius: 50%; border: 0; background: var(--navy); color: #fff; display: grid; place-items: center; box-shadow: var(--shadow-lg); }
 .a11y-btn .icon { width: 24px; height: 24px; }
-@media (max-width: 899px) { .a11y-btn { bottom: 66px; inset-inline-end: 12px; width: 40px; height: 40px; } }
 .a11y-panel { position: fixed; inset-inline-end: 16px; bottom: 76px; z-index: 61; width: min(320px, calc(100vw - 32px)); background: var(--white); color: var(--ink); border-radius: var(--r); box-shadow: var(--shadow-lg); padding: 20px; display: none; }
-@media (max-width: 899px) { .a11y-panel { bottom: 116px; } }
 .a11y-panel.open { display: block; }
 .a11y-panel h2 { font-size: 1.15rem; margin-bottom: 14px; }
 .a11y-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
@@ -598,10 +620,8 @@ html.a11y-still *, html.a11y-still *::before, html.a11y-still *::after { animati
 
 /* home, phone: the bottom call bar slides in only after the hero has scrolled away (the hero has its own buttons) */
 @keyframes bar-in { from { transform: translateY(110%); } to { transform: none; } }
-@keyframes a11y-up { from { transform: translateY(50px); } to { transform: none; } }
 @media (max-width: 899px) {
   @supports (animation-timeline: scroll()) {
     .page-index .m-cta { animation: bar-in linear both; animation-timeline: scroll(root); animation-range: 55svh 75svh; }
-    .page-index .a11y-btn { animation: a11y-up linear both; animation-timeline: scroll(root); animation-range: 55svh 75svh; }
   }
 }

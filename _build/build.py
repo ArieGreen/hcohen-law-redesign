@@ -77,6 +77,7 @@ PHONE_A = ORIG_INDEX.footer.find('a', href=re.compile('^tel:'))
 PHONE_TXT, PHONE_HREF = PHONE_A.get_text(strip=True), PHONE_A['href']
 TOC_LABEL = soup_of(read('article-mikvaot.html')).find('p', class_='toc-title').get_text(strip=True)
 CONTACT_TXT = ORIG_INDEX.find('nav', id='main-nav').find('a', href='contact.html').get_text()
+NAV_ICONS = {'about.html': 'i-briefcase', 'areas.html': 'i-key', 'team.html': 'i-users', 'articles.html': 'i-book', 'contact.html': 'i-chat'}
 
 
 def header(cur):
@@ -88,6 +89,14 @@ def header(cur):
     for a in nav.find_all('a'):
         if a['href'] == cur or (a['href'] == 'areas.html' and cur in AREA_FILES):
             a['aria-current'] = 'page'
+        # phone menu only: a line icon before each item and an arrow after it (hidden on desktop)
+        if a['href'] in NAV_ICONS:
+            a.insert(0, soup_of(icon(NAV_ICONS[a['href']]).replace('class="icon"', 'class="icon nav-ico"')))
+            a.append(soup_of(icon('i-arrow').replace('class="icon"', 'class="icon nav-arr"')))
+    # phone menu footer: call button and the office address (both as written in the site footer)
+    addr = ' · '.join(p.get_text(strip=True) for p in ORIG_INDEX.footer.find('address').find_all('p')[:2])
+    nav.append(soup_of(f'<div class="nav-extra"><a class="nav-call" href="{PHONE_HREF}">{icon("i-phone")}<span dir="ltr">{PHONE_TXT}</span></a>'
+                       f'<p class="nav-addr">{addr}</p></div>'))
     call = soup_of(f'<a class="header-call" href="{PHONE_HREF}">{icon("i-phone")}<span class="num" dir="ltr">{PHONE_TXT}</span></a>')
     box.clear()
     for el in (brand, nav, call, toggle):
