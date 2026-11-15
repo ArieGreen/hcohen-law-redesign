@@ -29,6 +29,8 @@ LEGAL_FILES = {'privacy.html', 'terms.html', 'cookies.html', 'accessibility.html
 AREA_ICONS = {'religious-services.html': 'i-stone', 'labor.html': 'i-users', 'administrative.html': 'i-landmark',
               'tenders.html': 'i-stamp', 'kashrut.html': 'i-badge', 'collection.html': 'i-coins'}
 # practice-area page blocks, keyed by their (original) heading
+AREA_IMAGES = {'religious-services.html': 'religious', 'labor.html': 'labor', 'administrative.html': 'administrative',
+               'tenders.html': 'tenders', 'kashrut.html': 'kashrut', 'collection.html': 'collection'}
 SECTION_KINDS = {'השירותים בתחום': 'services', 'בין הנושאים שבהם המשרד מטפל': 'topics', 'מסגרת הדין': 'law',
                  'דפי נושא': 'topic-pages', 'מאמרים בתחום': 'articles'}
 
@@ -40,9 +42,28 @@ def icon(name, cls='icon'):
 ARROW = icon('i-arrow')
 
 
-def head_bg(src='towers-duo', pos=''):
-    return (f'<div class="head-bg" aria-hidden="true"><img src="assets/img/{src}-1000.webp" srcset="assets/img/{src}-600.webp 600w, '
-            f'assets/img/{src}-1000.webp 1000w" sizes="100vw" width="1000" height="1250" alt="" decoding="async" fetchpriority="high"></div>')
+def head_bg(stock=None):
+    """Dark page-head photo: a CC0 stock image for areas/articles, the real office towers elsewhere."""
+    if stock:
+        return (f'<div class="head-bg" aria-hidden="true"><img src="assets/img/stock/{stock}-1024.webp" srcset="assets/img/stock/{stock}-800.webp 800w, '
+                f'assets/img/stock/{stock}-1024.webp 1024w" sizes="100vw" width="1024" height="683" alt="" decoding="async" fetchpriority="high"></div>')
+    return ('<div class="head-bg" aria-hidden="true"><img src="assets/img/towers-duo-1000.webp" srcset="assets/img/towers-duo-600.webp 600w, '
+            'assets/img/towers-duo-1000.webp 1000w" sizes="100vw" width="1000" height="1250" alt="" decoding="async" fetchpriority="high"></div>')
+
+
+def card_img(stock):
+    return (f'<span class="card-img" aria-hidden="true"><img src="assets/img/stock/{stock}-800.webp" width="800" height="534" alt="" '
+            f'loading="lazy" decoding="async"></span>')
+
+
+def page_image(name):
+    if name in AREA_IMAGES:
+        return AREA_IMAGES[name]
+    if name.startswith(('article-', 'topic-')) or name == 'articles.html':
+        return 'books'
+    if name == 'areas.html':
+        return 'library'
+    return None
 
 
 def read(name):
@@ -141,7 +162,7 @@ def transform_main(name, main_html):
                 inner.append(el.extract())
         ph.clear()
         ph['class'] = ph.get('class', []) + ['grain']
-        ph.append(soup_of(head_bg()))
+        ph.append(soup_of(head_bg(page_image(name))))
         ph.append(inner)
     if name.startswith('article-'):
         art = s.main.find('article')
@@ -157,6 +178,7 @@ def transform_main(name, main_html):
         for li in s.main.select('ul.area-list > li'):
             href = li.find('h3').a['href']
             li.insert(0, soup_of(icon(AREA_ICONS.get(href, 'i-scroll'), 'icon area-ico')))
+            li.insert(0, soup_of(card_img(AREA_IMAGES.get(href, 'library'))))
             more = li.find('a', class_='more')
             if more:
                 more.append(soup_of(ARROW))
@@ -194,7 +216,7 @@ def home_main():
     cards = ''
     for li in band.select('ul.area-list > li'):
         a = li.find('h3').find('a'); more = li.find('a', class_='more')
-        cards += (f'<li><a href="{a["href"]}">{icon(AREA_ICONS[a["href"]], "icon area-ico")}<h3>{a.get_text(strip=True)}</h3>'
+        cards += (f'<li><a href="{a["href"]}">{card_img(AREA_IMAGES[a["href"]])}{icon(AREA_ICONS[a["href"]], "icon area-ico")}<h3>{a.get_text(strip=True)}</h3>'
                   f'<p>{li.find("p").get_text(strip=True)}</p><span class="more">{more.decode_contents()}{ARROW}</span></a></li>')
     notary = band.find('p', class_='muted').get_text(strip=True)
 
