@@ -199,6 +199,7 @@ def home_main():
     hero = m.find('section', class_='home-hero')
     img = hero.find('img')
     kicker = hero.find('p', class_='hero-kicker').get_text(strip=True)
+    since_word, since_year = kicker.split(' ', 1)   # "מאז 2001": same text, word small and year large
     h1 = hero.find('h1')
     h1_name = h1.contents[0].strip()
     tagline = h1.find('span', class_='tagline').get_text(strip=True)
@@ -231,10 +232,10 @@ def home_main():
 
 <section class="hero" aria-labelledby="hero-title">
   <div class="hero-photo"><img src="assets/img/bsr-towers-1000.webp" srcset="assets/img/bsr-towers-600.webp 600w, assets/img/bsr-towers-1000.webp 1000w" sizes="100vw" width="1000" height="1250" alt="{img["alt"]}" decoding="async" fetchpriority="high"></div>
+  <p class="since"><span class="since-word">{since_word}</span> <span class="since-year">{since_year}</span></p>
   <div class="hero-panel">
     <h1 id="hero-title"><span class="h1-name">{h1_name}</span><span class="visually-hidden"> | </span><span class="tagline">{tagline}</span></h1>
     <div class="hero-actions">{btns}</div>
-    <p class="since">{kicker}</p>
   </div>
 </section>
 

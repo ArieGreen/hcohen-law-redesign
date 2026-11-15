@@ -121,12 +121,17 @@ a.more { color: var(--accent); font-weight: 600; text-decoration: none; }
 .h1-name { display: block; font-size: clamp(2.3rem, 9vw, 4.6rem); line-height: 1.04; letter-spacing: -.015em; color: var(--navy); }
 .tagline { display: block; margin-top: 18px; font-weight: 400; font-size: clamp(1.05rem, 1.5vw, 1.3rem); line-height: 1.55; color: var(--ink-2); max-width: 46ch; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
-.since { display: flex; align-items: center; gap: 12px; margin: 26px 0 0; padding-top: 18px; border-top: 1px solid var(--line); color: var(--ink-2); font-size: .95rem; font-weight: 500; }
-.since::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--brass); }
+/* founding year: a navy badge anchored to the photo's far corner */
+.since { position: absolute; z-index: 1; inset-inline-end: var(--margin); top: 20px; margin: 0; display: flex; flex-direction: column; align-items: center; line-height: 1; padding: 14px 18px 16px; background: var(--navy); color: #fff; border-radius: var(--r); box-shadow: var(--shadow-lg); }
+.since-word { font-size: .85rem; font-weight: 500; color: var(--on-navy-2); margin-bottom: 6px; }
+.since-year { font-size: 1.9rem; font-weight: 800; letter-spacing: -.01em; }
 @media (min-width: 900px) {
   .hero { padding-bottom: 0; }
-  .hero-panel { position: absolute; inset-inline-start: max(var(--margin), calc((100% - var(--max)) / 2)); bottom: -110px; margin: 0; width: min(640px, 52%); padding: 48px 48px 36px; }
+  .hero-panel { position: absolute; inset-inline-start: max(var(--margin), calc((100% - var(--max)) / 2)); bottom: -110px; margin: 0; width: min(640px, 52%); padding: 48px; }
   .hero-actions .btn { min-width: 150px; }
+  .since { top: auto; bottom: 40px; inset-inline-end: max(var(--margin), calc((100% - var(--max)) / 2)); padding: 20px 28px 22px; }
+  .since-word { font-size: .95rem; margin-bottom: 8px; }
+  .since-year { font-size: 2.8rem; }
 }
 @media (max-width: 899px) {
   .hero-photo { height: 34svh; min-height: 220px; }
@@ -136,7 +141,6 @@ a.more { color: var(--accent); font-weight: 600; text-decoration: none; }
   .hero-actions { display: grid; grid-template-columns: 1fr 1fr; margin-top: 20px; }
   .hero-actions .btn { min-height: 48px; padding: 0 10px; }
   .hero-actions .btn:first-child { grid-column: 1 / -1; }
-  .since { margin-top: 16px; padding-top: 12px; }
 }
 
 /* ---------- home: intro (portrait crosses into the navy band) ---------- */
@@ -438,7 +442,6 @@ a.more { color: var(--accent); font-weight: 600; text-decoration: none; }
 @media (max-width: 899px) {
   .hero-panel { text-align: center; }
   .tagline { margin-inline: auto; }
-  .since { justify-content: center; }
   .intro .text { text-align: center; }
   .intro p { margin-inline: auto; }
   .areas .sec-head, .notary, .pubs .head { text-align: center; justify-content: center; }
