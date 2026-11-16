@@ -40,7 +40,7 @@ def icon(name, cls='icon'):
 
 
 ARROW = icon('i-arrow')
-TEAM_PHOTOS = {'עו"ד הילה פריד': 'hila-fried-240.webp'}
+TEAM_PHOTOS = {'עו"ד הילה פריד': 'hila-fried-720.webp'}
 
 
 def card_img(stock):
@@ -211,7 +211,9 @@ def transform_main(name, main_html):
             photo = TEAM_PHOTOS.get(li.find('h2').get_text(strip=True))
             if photo:
                 li.find('div', class_='person-photo').span.replace_with(soup_of(
-                    f'<img src="assets/img/{photo}" width="240" height="240" alt="" loading="lazy" decoding="async">'))
+                    f'<img src="assets/img/{photo}" width="720" height="900" alt="" loading="lazy" decoding="async">'))
+        founder = s.main.select_one('ul.people > li img')
+        founder['src'], founder['width'], founder['height'] = 'assets/img/hagai-cohen-720.webp', '720', '900'
     elif name == 'about.html':
         # text column + sticky side column built from the page's own material (portrait, "המשרד" address block, the towers)
         block = s.main.find('div', class_='block')

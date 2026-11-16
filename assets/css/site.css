@@ -1457,3 +1457,33 @@ html.a11y-still *, html.a11y-still *::before, html.a11y-still *::after { animati
   .page-article .page-head .lead, .page-topic .page-head .lead, .page-legal .page-head .lead { font-size: .98rem; max-width: 96ch; margin-top: 10px; }
   .page-article .page-head, .page-topic .page-head { padding-bottom: 50px; }
 }
+
+/* ===== Team: portraits. Founder card three columns wide with one lawyer beside it, four below ===== */
+@media (min-width: 1000px) {
+  .page-team .people { grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: auto; gap: 26px; }
+  .page-team .people > li:nth-child(n) { grid-column: auto; grid-row: auto; display: flex; flex-direction: column; align-items: stretch; gap: 0; padding: 0; margin: 0; background: #fff; color: var(--navy); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; box-shadow: 0 18px 34px -28px rgba(11, 28, 53, .55); }
+  .page-team .people > li:nth-child(n) .person-photo { flex: 1 1 auto; width: 100%; height: auto; min-height: 0; aspect-ratio: 4 / 5; border-radius: 0; border: 0; border-bottom: 3px solid #8DB4E2; margin: 0; clip-path: none; display: grid; place-items: center; background: linear-gradient(160deg, #1D3D6B, #0B1C35); color: #8DB4E2; font-size: 3.2rem; font-weight: 800; }
+  .page-team .people > li:nth-child(n) .person-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 10%; }
+  .page-team .people > li:nth-child(n) h2 { margin: 0; padding: 18px 20px 0; border: 0; font-size: 1.22rem; line-height: 1.2; color: var(--navy); }
+  .page-team .people > li:nth-child(n) .role { margin: 0; padding: 4px 20px 20px; border: 0; color: var(--ink-2); font-size: .95rem; }
+  .page-team .people > li:first-child { grid-column: span 3; display: grid; grid-template-columns: 44% minmax(0, 1fr); grid-template-rows: 1fr 1fr; gap: 0 40px; background: linear-gradient(120deg, #12294A, #0B1C35); border: 0; }
+  .page-team .people > li:first-child .person-photo { grid-row: 1 / span 2; aspect-ratio: auto; height: 100%; border-bottom: 0; clip-path: polygon(0 0, 100% 0, 100% 100%, 14% 100%); }
+  .page-team .people > li:first-child h2 { align-self: end; padding: 0; font-size: clamp(2rem, 3vw, 2.5rem); line-height: 1.1; color: #fff; }
+  .page-team .people > li:first-child h2 a { color: #fff; }
+  .page-team .people > li:first-child .role { align-self: start; justify-self: start; margin-top: 12px; padding: 14px 0 0; border-top: 1px solid rgba(141, 180, 226, .35); color: var(--on-navy-2); font-size: 1.1rem; }
+}
+/* phone and tablet: the ruled list stays, with real portraits in it */
+@media (max-width: 999px) {
+  .page-team .people > li:nth-child(n+2) { grid-template-columns: 76px 1fr; gap: 2px 18px; }
+  .page-team .people > li:nth-child(n+2) .person-photo { width: 76px; height: 76px; aspect-ratio: auto; border: 0; border-radius: var(--r); overflow: hidden; background: linear-gradient(160deg, #1D3D6B, #0B1C35); color: #8DB4E2; font-size: 1.3rem; font-weight: 800; }
+  .page-team .people > li:nth-child(n+2) .person-photo img { object-position: 50% 8%; }
+}
+/* tablet: founder card across the top, the list under it */
+@media (min-width: 700px) and (max-width: 999px) {
+  .page-team .people { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .page-team .people > li:first-child { grid-column: 1; display: grid; grid-template-columns: 280px minmax(0, 1fr); grid-template-rows: 1fr 1fr; gap: 0 36px; align-items: stretch; padding: 0; margin-bottom: 18px; }
+  .page-team .people > li:first-child .person-photo { grid-row: 1 / span 2; width: 100%; height: 100%; aspect-ratio: 4 / 5; margin: 0; border: 0; border-radius: 0; }
+  .page-team .people > li:first-child h2 { align-self: end; padding: 0; }
+  .page-team .people > li:first-child .role { align-self: start; padding: 0; }
+  .page-team .people > li:nth-child(n+2) { padding: 16px 4px; background: none; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; align-items: center; }
+}
