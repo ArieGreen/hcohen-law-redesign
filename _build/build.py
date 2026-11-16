@@ -43,7 +43,7 @@ ARROW = icon('i-arrow')
 
 
 def card_img(stock):
-    return (f'<span class="card-img" aria-hidden="true"><img src="assets/img/stock/{stock}-800.webp" width="800" height="534" alt="" '
+    return (f'<span class="card-img" aria-hidden="true"><img src="assets/img/ai/{stock}.webp" width="800" height="534" alt="" '
             f'loading="lazy" decoding="async"></span>')
 
 
