@@ -40,6 +40,8 @@ def icon(name, cls='icon'):
 
 
 ARROW = icon('i-arrow')
+TEAM_ADDED = [('עו"ד לינור קריף', 'ל.ק', 'עורכת דין')]
+TEAM_META = ('עו&quot;ד מני נוריאל ועו&quot;ד הילה פריד.', 'עו&quot;ד מני נוריאל, עו&quot;ד הילה פריד ועו&quot;ד לינור קריף.')
 TEAM_PHOTOS = {'עו"ד הילה פריד': 'hila-fried-720.webp'}
 
 
@@ -207,6 +209,11 @@ def transform_main(name, main_html):
             if more:
                 more.append(soup_of(ARROW))
     elif name == 'team.html':
+        # lawyers who joined after the original page was written (approved by the site owner)
+        for full, initials, role in TEAM_ADDED:
+            s.main.select_one('ul.people').append(soup_of(
+                f'<li><div aria-hidden="true" class="person-photo"><span>{initials}</span></div>'
+                f'<h2>{full}</h2><div class="role">{role}</div></li>'))
         for li in s.main.select('ul.people > li'):
             photo = TEAM_PHOTOS.get(li.find('h2').get_text(strip=True))
             if photo:
@@ -340,6 +347,9 @@ def build():
         name = os.path.basename(path)
         html = read(name)
         head = html[:html.index('<body')]
+        if name == 'team.html':
+            assert head.count(TEAM_META[0]) == 2
+            head = head.replace(*TEAM_META)
         btag = re.search(r'<body[^>]*>', html).group(0)
         main = re.search(r'<main[\s\S]*?</main>', html).group(0)
         main = home_main() if name == 'index.html' else transform_main(name, main)

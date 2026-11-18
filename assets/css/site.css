@@ -1487,3 +1487,9 @@ html.a11y-still *, html.a11y-still *::before, html.a11y-still *::after { animati
   .page-team .people > li:first-child .role { align-self: start; padding: 0; }
   .page-team .people > li:nth-child(n+2) { padding: 16px 4px; background: none; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; align-items: center; }
 }
+/* seven people: founder card two columns wide with two lawyers beside it, four below */
+@media (min-width: 1000px) {
+  .page-team .people > li:first-child { grid-column: span 2; grid-template-columns: 47% minmax(0, 1fr); gap: 0 26px; padding-inline-end: 24px; }
+  .page-team .people > li:first-child h2 { font-size: clamp(1.6rem, 2.3vw, 2.1rem); }
+  .page-team .people > li:first-child .role { font-size: 1rem; }
+}
