@@ -1493,3 +1493,11 @@ html.a11y-still *, html.a11y-still *::before, html.a11y-still *::after { animati
   .page-team .people > li:first-child h2 { font-size: clamp(1.6rem, 2.3vw, 2.1rem); }
   .page-team .people > li:first-child .role { font-size: 1rem; }
 }
+/* founder tall on one side; the men in one row and the women in the next */
+@media (min-width: 1000px) {
+  .page-team .people { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 24px; }
+  .page-team .people > li:first-child { grid-column: span 2; grid-row: span 2; display: flex; flex-direction: column; gap: 0; padding: 0; }
+  .page-team .people > li:first-child .person-photo { flex: 1 1 auto; height: auto; aspect-ratio: auto; clip-path: none; border-bottom: 3px solid #8DB4E2; }
+  .page-team .people > li:first-child h2 { align-self: auto; padding: 26px 30px 0; font-size: clamp(1.8rem, 2.6vw, 2.3rem); }
+  .page-team .people > li:first-child .role { align-self: flex-start; margin: 12px 30px 0; padding: 12px 0 28px; font-size: 1.08rem; }
+}

@@ -41,6 +41,8 @@ def icon(name, cls='icon'):
 
 ARROW = icon('i-arrow')
 TEAM_ADDED = [('עו"ד לינור קריאף', 'ל.ק', 'עורכת דין')]
+TEAM_ORDER = ['עו"ד חגי פ. כהן', 'עו"ד איתן דנינו', 'עו"ד מחמוד סאבר מסארווה', 'עו"ד מני נוריאל',
+              'עו"ד רינת פרנק', 'עו"ד הילה פריד', 'עו"ד לינור קריאף']
 TEAM_META = ('עו&quot;ד מני נוריאל ועו&quot;ד הילה פריד.', 'עו&quot;ד מני נוריאל, עו&quot;ד הילה פריד ועו&quot;ד לינור קריאף.')
 TEAM_PHOTOS = {'עו"ד הילה פריד': 'hila-fried-720.webp', 'עו"ד מני נוריאל': 'mani-nuriel-720.webp', 'עו"ד רינת פרנק': 'rinat-frank-720.webp', 'עו"ד לינור קריאף': 'linor-kriaf-720.webp'}
 
@@ -214,6 +216,13 @@ def transform_main(name, main_html):
             s.main.select_one('ul.people').append(soup_of(
                 f'<li><div aria-hidden="true" class="person-photo"><span>{initials}</span></div>'
                 f'<h2>{full}</h2><div class="role">{role}</div></li>'))
+        # order asked for by the site owner: founder, then the men, then the women
+        ul = s.main.select_one('ul.people')
+        by_name = {li.find('h2').get_text(strip=True): li.extract() for li in ul.find_all('li', recursive=False)}
+        assert set(by_name) == set(TEAM_ORDER), set(by_name) ^ set(TEAM_ORDER)
+        ul.clear()
+        for full in TEAM_ORDER:
+            ul.append(by_name[full])
         for li in s.main.select('ul.people > li'):
             photo = TEAM_PHOTOS.get(li.find('h2').get_text(strip=True))
             if photo:
