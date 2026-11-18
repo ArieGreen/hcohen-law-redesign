@@ -40,8 +40,8 @@ def icon(name, cls='icon'):
 
 
 ARROW = icon('i-arrow')
-TEAM_ADDED = [('עו"ד לינור קריף', 'ל.ק', 'עורכת דין')]
-TEAM_META = ('עו&quot;ד מני נוריאל ועו&quot;ד הילה פריד.', 'עו&quot;ד מני נוריאל, עו&quot;ד הילה פריד ועו&quot;ד לינור קריף.')
+TEAM_ADDED = [('עו"ד לינור קריאף', 'ל.ק', 'עורכת דין')]
+TEAM_META = ('עו&quot;ד מני נוריאל ועו&quot;ד הילה פריד.', 'עו&quot;ד מני נוריאל, עו&quot;ד הילה פריד ועו&quot;ד לינור קריאף.')
 TEAM_PHOTOS = {'עו"ד הילה פריד': 'hila-fried-720.webp', 'עו"ד מני נוריאל': 'mani-nuriel-720.webp', 'עו"ד רינת פרנק': 'rinat-frank-720.webp'}
 
 
