@@ -16,4 +16,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://ariegreen.github.io/hcohen-law-redesign/sitemap.xml
+Sitemap: https://www.h-cohen.com/sitemap.xml

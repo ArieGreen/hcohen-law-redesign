@@ -25,7 +25,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 ORIG, OUT = (sys.argv[1], sys.argv[2]) if len(sys.argv) == 3 else (os.path.join(HERE, 'original-site'), os.path.join(ROOT, 'docs'))
 # where the site lives. Change this one line when the custom domain is connected.
-SITE = 'https://ariegreen.github.io/hcohen-law-redesign/'
+SITE = 'https://www.h-cohen.com/'
 OLD_SITE = 'https://cochag12.github.io/hcohen-law/'
 # original file name -> clean URL path (a folder with index.html). '' is the home page.
 AREA_SLUGS = ['religious-services', 'labor', 'administrative', 'tenders', 'kashrut', 'collection']

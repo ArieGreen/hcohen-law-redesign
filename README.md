@@ -31,7 +31,7 @@ DESIGN.md  כיוון העיצוב וההחלטות
 python src/build.py
 ```
 דורש Python 3 ו-`beautifulsoup4`. בראש `src/build.py`:
-- `SITE` - כתובת האתר. כשהדומיין יחובר, משנים כאן שורה אחת ובונים מחדש.
+- `SITE` - כתובת האתר (https://www.h-cohen.com/). כל הקישורים הקנוניים, מפת האתר והמידע המובנה נבנים ממנה.
 - `CONTENT_UPDATES`, `STATEMENT_UPDATES`, `TEAM_*` - שינויי טקסט שאושרו.
 - `ORG_NAMES`, `FOUNDER_NAMES` - צורות השם שגוגל ומנועי AI מקבלים במידע המובנה.
 
