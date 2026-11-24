@@ -506,7 +506,7 @@ a.more { color: var(--accent); font-weight: 600; text-decoration: none; }
 .picker-value { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .picker-chev { width: 16px; height: 16px; color: var(--brass); transition: transform .2s var(--ease); }
 .picker.open .picker-chev { transform: rotate(180deg); }
-.picker-list { position: absolute; z-index: 30; inset-inline: 0; top: calc(100% + 6px); max-height: min(340px, 56vh); overflow-y: auto; margin: 0; padding: 6px; list-style: none; background: var(--white); border: 1px solid var(--line); border-top: 3px solid var(--gold); border-radius: var(--r); box-shadow: var(--shadow-lg); outline: none; overscroll-behavior: contain; }
+.picker-list { position: absolute; z-index: 30; inset-inline: 0; top: calc(100% + 6px); max-height: min(440px, 60vh); overflow-y: auto; scrollbar-width: thin; scrollbar-color: #D9CFB8 transparent; margin: 0; padding: 6px; list-style: none; background: var(--white); border: 1px solid var(--line); border-top: 3px solid var(--gold); border-radius: var(--r); box-shadow: var(--shadow-lg); outline: none; overscroll-behavior: contain; }
 .picker-list[hidden] { display: none; }
 .picker-list li { position: relative; padding: 11px 14px 11px 12px; padding-inline-start: 18px; border-radius: 4px; color: var(--ink); line-height: 1.4; cursor: pointer; }
 .picker-list li.is-active { background: var(--mist); color: var(--navy); }
