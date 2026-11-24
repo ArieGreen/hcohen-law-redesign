@@ -88,7 +88,7 @@ TEAM_META = ('עו&quot;ד מני נוריאל ועו&quot;ד הילה פריד.
 TEAM_ROLES = {'עו"ד איתן דנינו': 'עורך דין ונוטריון', 'עו"ד הילה פריד': 'עורכת דין וכלכלנית'}
 TEAM_LD = [('עו"ד איתן דנינו', 'עורך דין'), ('עו"ד מחמוד סאבר מסארווה', 'עורך דין'), ('עו"ד מני נוריאל', 'עורך דין'),
            ('עו"ד רינת פרנק', 'עורכת דין'), ('עו"ד הילה פריד', 'עורכת דין'), ('עו"ד לינור קריאף', 'עורכת דין')]
-TEAM_PHOTOS = {'עו"ד הילה פריד': 'hila-fried-720.webp', 'עו"ד מני נוריאל': 'mani-nuriel-720.webp', 'עו"ד רינת פרנק': 'rinat-frank-720.webp', 'עו"ד לינור קריאף': 'linor-kriaf-720.webp'}
+TEAM_PHOTOS = {'עו"ד איתן דנינו': 'eitan-danino-720.webp', 'עו"ד הילה פריד': 'hila-fried-720.webp', 'עו"ד מני נוריאל': 'mani-nuriel-720.webp', 'עו"ד רינת פרנק': 'rinat-frank-720.webp', 'עו"ד לינור קריאף': 'linor-kriaf-720.webp'}
 
 
 def card_img(stock):
@@ -173,7 +173,7 @@ def new_head(head_html):
     h = re.sub(r'<link rel="preload"[^>]+>\n?', '', head_html)
     h = re.sub(r'assets/css/site\.css\?v=\w+', f'assets/css/site.css?v={V}', h)
     h = re.sub(r'assets/js/a11y-init\.js\?v=\w+', f'assets/js/a11y-init.js?v={V}', h)
-    h = h.replace('content="#FAF6EE"', 'content="#12294A"')
+    h = h.replace('content="#FAF6EE"', 'content="#16294A"')
     pre = '<link rel="preload" href="assets/fonts/heebo-hebrew.woff2" as="font" type="font/woff2" crossorigin>\n'
     return h.replace('<link rel="stylesheet"', pre + '<link rel="stylesheet"', 1)
 
