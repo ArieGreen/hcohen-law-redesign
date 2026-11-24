@@ -211,7 +211,7 @@
     '<button type="button" data-a="readable">גופן קריא</button>' +
     '<button type="button" data-a="still">עצירת אנימציות</button>' +
     '<button type="button" data-a="close">סגירה</button></div>' +
-    '<div class="a11y-foot"><a href="' + (CFG.base || '') + 'accessibility.html">הצהרת נגישות</a><button type="button" data-a="reset">איפוס</button></div>';
+    '<div class="a11y-foot"><a href="' + (CFG.base || '') + 'legal/accessibility/">הצהרת נגישות</a><button type="button" data-a="reset">איפוס</button></div>';
   document.body.appendChild(a11yBtn); document.body.appendChild(panel);
   function syncPressed() {
     panel.querySelectorAll('[data-a]').forEach(function (b) {
@@ -252,7 +252,7 @@
     else if (choice !== 'no') {
       var bar = document.createElement('div');
       bar.className = 'consent-bar'; bar.setAttribute('role', 'region'); bar.setAttribute('aria-label', 'הסכמה לעוגיות');
-      bar.innerHTML = '<p>האתר משתמש בעוגיות ניתוח (Google Analytics) רק אם תאשרו. <a href="' + (CFG.base || '') + 'privacy.html">מדיניות הפרטיות</a></p><div class="btns"><button type="button" class="btn btn-outline" data-c="yes">אישור</button><button type="button" class="btn btn-outline" data-c="no">דחייה</button></div>';
+      bar.innerHTML = '<p>האתר משתמש בעוגיות ניתוח (Google Analytics) רק אם תאשרו. <a href="' + (CFG.base || '') + 'legal/privacy/">מדיניות הפרטיות</a></p><div class="btns"><button type="button" class="btn btn-outline" data-c="yes">אישור</button><button type="button" class="btn btn-outline" data-c="no">דחייה</button></div>';
       document.body.appendChild(bar);
       bar.addEventListener('click', function (e) {
         var b = e.target.closest('[data-c]'); if (!b) return;
