@@ -1,22 +1,22 @@
 # ח. כהן - משרד עורכי דין · אתר
 
 ```
-site/      האתר שעולה לאוויר (מתפרסם אוטומטית בכל push ל-main)
+docs/      האתר שעולה לאוויר (GitHub Pages מפרסם את התיקייה הזו בכל push ל-main)
 src/       סקריפט הבנייה, תוכן המקור ותמונות המקור
 DESIGN.md  כיוון העיצוב וההחלטות
 ```
 
-## site/ - האתר
+## docs/ - האתר
 | כתובת | קובץ |
 |---|---|
-| `/` | `site/index.html` |
-| `/about/` · `/team/` · `/team/hagai-cohen/` · `/contact/` · `/en/` | `site/<שם>/index.html` |
-| `/areas/` ותחומים: `/areas/labor/`... | `site/areas/` |
-| `/articles/` ומאמרים: `/articles/mikvaot/`... | `site/articles/` |
-| דפי נושא: `/topics/...` | `site/topics/` |
-| מדיניות ונגישות: `/legal/privacy/`... | `site/legal/` |
-| עיצוב, סקריפטים, גופנים, תמונות | `site/assets/` (נערך ידנית) |
-| לגוגל: `robots.txt`, `sitemap.xml`, `404.html` | `site/` |
+| `/` | `docs/index.html` |
+| `/about/` · `/team/` · `/team/hagai-cohen/` · `/contact/` · `/en/` | `docs/<שם>/index.html` |
+| `/areas/` ותחומים: `/areas/labor/`... | `docs/areas/` |
+| `/articles/` ומאמרים: `/articles/mikvaot/`... | `docs/articles/` |
+| דפי נושא: `/topics/...` | `docs/topics/` |
+| מדיניות ונגישות: `/legal/privacy/`... | `docs/legal/` |
+| עיצוב, סקריפטים, גופנים, תמונות | `docs/assets/` (נערך ידנית) |
+| לגוגל: `robots.txt`, `sitemap.xml`, `404.html` | `docs/` |
 
 עמודי ה-HTML נוצרים מהסקריפט. לא עורכים אותם ידנית.
 
@@ -37,5 +37,5 @@ python src/build.py
 
 ## הוספת תמונה לעורך/ת דין
 1. לשמור את המקור ב-`src/photos/<name>-original.jpg`.
-2. לייצא ‎720×900‎ WebP אל `site/assets/img/<name>-720.webp` (חיתוך קרוב, הפנים בגודל דומה לשאר).
+2. לייצא ‎720×900‎ WebP אל `docs/assets/img/<name>-720.webp` (חיתוך קרוב, הפנים בגודל דומה לשאר).
 3. להוסיף ל-`TEAM_PHOTOS` ב-`src/build.py` ולהריץ את הבנייה.

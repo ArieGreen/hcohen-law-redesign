@@ -5,7 +5,7 @@ changes markup structure and styling hooks. Text changes approved by the site ow
 are listed explicitly (CONTENT_UPDATES, STATEMENT_UPDATES, TEAM_*).
 
 Source: src/original-site/ = the original site at cochag12/hcohen-law commit 846d57a.
-Output: site/ (pages get clean folder URLs, see PAGES; site/assets/ is edited by hand).
+Output: docs/ (published by GitHub Pages; pages get clean folder URLs, see PAGES; docs/assets/ is edited by hand).
 Usage: python src/build.py
 """
 import glob
@@ -23,7 +23,7 @@ from bs4 import BeautifulSoup
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
-ORIG, OUT = (sys.argv[1], sys.argv[2]) if len(sys.argv) == 3 else (os.path.join(HERE, 'original-site'), os.path.join(ROOT, 'site'))
+ORIG, OUT = (sys.argv[1], sys.argv[2]) if len(sys.argv) == 3 else (os.path.join(HERE, 'original-site'), os.path.join(ROOT, 'docs'))
 # where the site lives. Change this one line when the custom domain is connected.
 SITE = 'https://ariegreen.github.io/hcohen-law-redesign/'
 OLD_SITE = 'https://cochag12.github.io/hcohen-law/'
