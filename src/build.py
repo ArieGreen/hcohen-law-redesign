@@ -173,7 +173,7 @@ def new_head(head_html):
     h = re.sub(r'<link rel="preload"[^>]+>\n?', '', head_html)
     h = re.sub(r'assets/css/site\.css\?v=\w+', f'assets/css/site.css?v={V}', h)
     h = re.sub(r'assets/js/a11y-init\.js\?v=\w+', f'assets/js/a11y-init.js?v={V}', h)
-    h = h.replace('content="#FAF6EE"', 'content="#16294A"')
+    h = h.replace('content="#FAF6EE"', 'content="#0B1628"')
     pre = '<link rel="preload" href="assets/fonts/heebo-hebrew.woff2" as="font" type="font/woff2" crossorigin>\n'
     return h.replace('<link rel="stylesheet"', pre + '<link rel="stylesheet"', 1)
 

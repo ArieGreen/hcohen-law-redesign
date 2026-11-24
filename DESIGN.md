@@ -13,7 +13,7 @@
 
 ## Color tokens
 24.11.2026: לבקשת חגי כהן הצבעים הם צבעי האתר המקורי (נייבי וזהב), על אותו עיצוב ואותה פריסה.
-white #FFF · mist #F3F4F7 · ink #1B2333 · ink-2 #545E6E · navy #16294A · navy-2 #0B1628 · on-navy #E8EBF1 · on-navy-2 #B9C1CE · accent (קישורים) #1F3864 · brass (תבליטים ואייקונים על רקע בהיר) #9A7B3C · gold (קווים, הדגשות וטקסט על נייבי) #D4B678 · line #E3E6EC.
+white #FFF · mist #F3F4F7 · ink #1B2333 · ink-2 #545E6E · navy #0F1E36 · navy-2 #0B1628 · on-navy #E8EBF1 · on-navy-2 #B9C1CE · accent (קישורים) #1F3864 · brass (תבליטים ואייקונים על רקע בהיר) #9A7B3C · gold (קווים, הדגשות וטקסט על נייבי) #D4B678 · line #E3E6EC.
 
 ## Type
 Heebo בלבד. כותרות 800, letter-spacing ‎-0.015em‎ בכותרות הגדולות בלבד. h1 בית 74px, h1 פנימי 74px, h2 54px. גוף 18px (17 בנייד), line-height 1.7.
