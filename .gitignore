@@ -2,6 +2,3 @@ __pycache__/
 *.pyc
 Thumbs.db
 .DS_Store
-mockups/
-_build/mockups.py
-ai-src/
