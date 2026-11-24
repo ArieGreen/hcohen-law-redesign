@@ -286,6 +286,11 @@ def transform_main(name, main_html):
             if photo:
                 li.find('div', class_='person-photo').span.replace_with(soup_of(
                     f'<img src="assets/img/{photo}" width="720" height="900" alt="" loading="lazy" decoding="async">'))
+        for i, img in enumerate(s.main.select('ul.people > li img')):
+            if i < 4:
+                img.attrs.pop('loading', None)
+                if i == 0:
+                    img['fetchpriority'] = 'high'
         founder = s.main.select_one('ul.people > li img')
         founder['src'], founder['width'], founder['height'] = 'assets/img/hagai-cohen-720.webp', '720', '900'
     elif name == 'about.html':
@@ -359,7 +364,7 @@ def home_main():
     return f'''<main id="main" tabindex="-1">
 
 <section class="hero" aria-labelledby="hero-title">
-  <div class="hero-photo"><img src="assets/img/bsr-day-1920.webp" srcset="assets/img/bsr-day-1000.webp 1000w, assets/img/bsr-day-1920.webp 1920w" sizes="(min-width: 900px) 160vw, 100vw" width="1920" height="1080" alt="{img["alt"]}" decoding="async" fetchpriority="high"></div>
+  <div class="hero-photo"><img src="assets/img/bsr-day-1400.webp" srcset="assets/img/bsr-day-1000.webp 1000w, assets/img/bsr-day-1400.webp 1400w, assets/img/bsr-day-1920.webp 1920w" sizes="(min-width: 900px) 130vw, 100vw" width="1920" height="1080" alt="{img["alt"]}" decoding="async" fetchpriority="high"></div>
   <div class="hero-panel">
     <p class="since"><span class="since-word">{since_word}</span> <span class="since-year">{since_year}</span></p>
     <h1 id="hero-title"><span class="h1-row"><img class="h1-mark" src="assets/img/logo-mark.webp" alt="" width="223" height="240"><span class="h1-name"><span class="nm">{h1_nm}</span><span class="dash"> - </span><span class="pr">{h1_pr}</span></span></span><span class="visually-hidden"> | </span><span class="tagline">{tagline}</span></h1>
@@ -523,6 +528,9 @@ def build():
         main = re.search(r'<main[\s\S]*?</main>', html).group(0)
         main = home_main() if name == 'index.html' else transform_main(name, main)
         out = new_head(head) + body_class(name, btag) + '\n' + header(name) + '\n' + main + '\n\n' + footer() + '</body>\n</html>\n'
+        if name == 'index.html':
+            out = out.replace('<link rel="stylesheet"', '<link rel="preload" as="image" href="assets/img/bsr-day-1400.webp" '
+                              'imagesrcset="assets/img/bsr-day-1000.webp 1000w, assets/img/bsr-day-1400.webp 1400w, assets/img/bsr-day-1920.webp 1920w" imagesizes="(min-width: 900px) 130vw, 100vw" fetchpriority="high">\n<link rel="stylesheet"', 1)
         out = enrich_ld(name, seo_head(name, out))
         path = PAGES[name]
         # the 404 page is served at any depth, so it links with full addresses
